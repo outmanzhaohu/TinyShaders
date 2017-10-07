@@ -6,7 +6,6 @@ using namespace TinyExtender;
 using namespace TinyWindow;
 using namespace TinyShaders;
 
-
 int main()
 {
 	windowManager* manager = new windowManager();
@@ -17,12 +16,12 @@ int main()
 	TinyExtender::InitializeExtentions();
 	shaderManager* shaders = new shaderManager();
 
+	std::vector<shaderProgram_t*> programs;
+
 	//the shader manager doesn't actually need to be initialized
-	shaders->LoadShaderProgramsFromConfigFile("Shaders/Shaders.txt", true);
+	shaders->LoadShaderProgramsFromConfigFile("Shaders/Shaders.txt", programs, true);
 
-	//tinyShaders::LoadProgramBinariesFromConfigFile("./Shaders/Binaries.txt");
-
-	glUseProgram(shaders->shaderPrograms.begin()->second->handle);
+	glUseProgram(programs[0]->handle);
 	
 	glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 	glPointSize(20.0f);
