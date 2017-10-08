@@ -32,6 +32,7 @@
 #include <memory>
 #include <system_error>
 #include <bitset>
+#include <sys/stat.h>
 
 namespace TinyShaders
 {
@@ -304,10 +305,23 @@ namespace TinyShaders
 				return error_t::invalidFilePath;
 			}
 
+			struct stat fileSize;
+			size_t FileLength = 0;
+
+			if (!stat(path, &fileSize))
+			{
+				FileLength = fileSize.st_size;
+			}
+
+			else
+			{
+				return error_t::invalidFilePath;
+			}
+
 			//get total byte in given file
-			fseek(file, 0, SEEK_END);
+			/*fseek(file, 0, SEEK_END);
 			size_t FileLength = ftell(file);
-			fseek(file, 0, SEEK_SET);
+			fseek(file, 0, SEEK_SET);*/
 
 			//allocate a file buffer and read the contents of the file
 			GLchar* buffer = new GLchar[FileLength + 1];
@@ -316,6 +330,7 @@ namespace TinyShaders
 
 			fclose(file);
 			outBuffer = buffer;
+			delete buffer;
 			return error_t::success;
 		}
 
