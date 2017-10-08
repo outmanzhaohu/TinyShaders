@@ -22,9 +22,9 @@
 #include <list>
 #include <vector>
 #include <map>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
